@@ -1,0 +1,79 @@
+version: "3.8"
+
+services:
+
+  # ===========================
+  # MySQL Database Service
+  # Docker Hub Image
+  # ===========================
+  mysql:
+    image: mysql:8.0
+
+    container_name: cloud-engine-mysql
+
+    environment:
+      MYSQL_DATABASE: cloud_engine_db
+      MYSQL_USER: nilesh
+      MYSQL_PASSWORD: nilesh123
+      MYSQL_ROOT_PASSWORD: root123
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    restart: always
+
+
+  # ===========================
+  # Backend Service
+  # Spring Boot Application
+  # ===========================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: cloud-engine-backend
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - mysql
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cloud_engine_db
+      SPRING_DATASOURCE_USERNAME: nilesh
+      SPRING_DATASOURCE_PASSWORD: nilesh123
+
+    restart: always
+
+
+  # ===========================
+  # Frontend Service
+  # React + Nginx
+  # ===========================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: cloud-engine-frontend
+
+    ports:
+      - "80:80"
+
+    depends_on:
+      - backend
+
+    restart: always
+
+
+
+# ===========================
+# Persistent MySQL Storage
+# ===========================
+volumes:
+  mysql_data:
