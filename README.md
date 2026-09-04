@@ -1,6 +1,6 @@
 # 🚀 Full Stack DevOps CI/CD Deployment on AWS EC2
 
-This project demonstrates a complete DevOps CI/CD pipeline for deploying a full-stack application using **React, Spring Boot, MySQL, Docker, Docker Compose, GitHub Actions, Docker Hub, and AWS EC2**.
+This project demonstrates a complete DevOps CI/CD pipeline for deploying a full-stack application using **React, Spring Boot, MySQL, Docker, Docker Compose, GitHub Actions, Docker Hub, and AWS EC2**  .
 
 ---
 
